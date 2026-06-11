@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bryce Ng — Systems &amp; Cloud Infrastructure</title>
+<meta name="description" content="Bryce Ng — systems and cloud infrastructure specialist in Toronto. 7+ years enterprise IT, Azure certified." />
+
+<!--
+┌────────────────────────────────────────────────────────────────┐
+│  EDIT THESE 5 THINGS, then deploy:                             │
+│   1. LinkedIn URL      → search:  EDIT-LINKEDIN                │
+│   2. GitHub URL        → search:  EDIT-GITHUB                  │
+│   3. Email address     → search:  EDIT-EMAIL                   │
+│   4. Tagline (opt.)    → search:  EDIT-TAGLINE                 │
+│   5. Job dates/titles  → search:  EDIT-DATES (verify vs CV)    │
+│  Optional: delete the bridge-role block → search: EDIT-OPTIONAL│
+└────────────────────────────────────────────────────────────────┘
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #eef1f4;
+    --card: #f7f9fa;
+    --ink: #16222e;
+    --ink-soft: #44545f;
+    --grid: #c9d2da;
+    --link: #0e7c66;
+    --link-soft: #0e7c6618;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ---------- status strip ---------- */
+  .status {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    background: var(--card);
+  }
+  .status .ok { color: var(--link); font-weight: 500; }
+
+  /* ---------- header ---------- */
+  header { margin-top: 40px; }
+
+  .name {
+    font-family: "Archivo", sans-serif;
+    font-weight: 800;
+    font-size: clamp(44px, 9vw, 76px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .tagline {
+    margin-top: 14px;
+    font-size: clamp(17px, 2.6vw, 20px);
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .tagline strong { color: var(--ink); font-weight: 600; }
+
+  .links {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .links a {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    padding: 7px 14px;
+    background: var(--card);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .links a:hover, .links a:focus-visible {
+    border-color: var(--link);
+    color: var(--link);
+  }
+  .links a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 64px; }
+
+  .sec-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--link);
+    border-bottom: 1px solid var(--grid);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+
+  .summary p { max-width: 64ch; color: var(--ink-soft); }
+  .summary p + p { margin-top: 12px; }
+
+  /* ---------- traceroute timeline ---------- */
+  .route { list-style: none; position: relative; }
+  .route::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--grid);
+  }
+  .hop {
+    position: relative;
+    padding: 0 0 36px 36px;
+  }
+  .hop:last-child { padding-bottom: 0; }
+  .hop::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--link);
+  }
+  .hop.current::before { background: var(--link); }
+
+  .hop-meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+  .hop-meta .hopnum { color: var(--link); font-weight: 500; }
+
+  .hop h3 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    margin-top: 4px;
+  }
+  .hop .org { color: var(--ink-soft); font-size: 15px; margin-top: 2px; }
+
+  .hop ul {
+    margin-top: 12px;
+    list-style: none;
+  }
+  .hop ul li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-top: 6px;
+  }
+  .hop ul li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--link);
+  }
+
+  /* ---------- certifications ---------- */
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .cert {
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    background: var(--card);
+    padding: 14px 16px;
+  }
+  .cert .code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--link);
+  }
+  .cert .cert-name { font-size: 14px; margin-top: 2px; }
+  .cert .cert-status {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .cert.progress { border-style: dashed; }
+
+  /* ---------- skills ---------- */
+  .skill-groups { display: grid; gap: 20px; }
+  .skill-group .group-name {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 13px;
+    border: 1px solid var(--grid);
+    border-radius: 999px;
+    padding: 4px 12px;
+    background: var(--card);
+    color: var(--ink);
+  }
+
+  /* ---------- contact ---------- */
+  .contact {
+    border: 1px solid var(--grid);
+    border-left: 3px solid var(--link);
+    border-radius: 4px;
+    background: var(--link-soft);
+    padding: 24px;
+  }
+  .contact h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .contact p { color: var(--ink-soft); margin-top: 6px; max-width: 56ch; }
+  .contact a {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    background: var(--link);
+    border-radius: 4px;
+    padding: 10px 18px;
+  }
+  .contact a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  footer {
+    margin-top: 64px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--grid);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---------- load animation ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: rise 0.5s ease forwards;
+    }
+    .rise:nth-child(2) { animation-delay: 0.08s; }
+    .rise:nth-child(3) { animation-delay: 0.16s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- status strip -->
+  <div class="status rise">
+    <span><span class="ok">●</span> STATUS: OPEN_TO_OPPORTUNITIES</span>
+    <span>LOC: TORONTO, ON</span>
+    <span>AUTH: CA WORK PERMIT → 2027-09</span>
+  </div>
+
+  <header class="rise">
+    <h1 class="name">Bryce Ng</h1>
+    <!-- EDIT-TAGLINE: tweak the line below if you want different wording -->
+    <p class="tagline"><strong>Systems &amp; cloud infrastructure specialist.</strong> 7+ years of enterprise IT in government infrastructure — now building toward architect-level roles in the GTA, one certification at a time.</p>
+
+    <nav class="links" aria-label="Profiles">
+      <!-- EDIT-LINKEDIN: replace # with your LinkedIn URL -->
+      <a href="#">LinkedIn ↗</a>
+      <!-- EDIT-GITHUB: replace # with your GitHub URL -->
+      <a href="#">GitHub ↗</a>
+      <!-- EDIT-EMAIL: replace with mailto:you@example.com -->
+      <a href="#">Email ↗</a>
+    </nav>
+  </header>
+
+  <section class="summary rise">
+    <h2 class="sec-label">// Summary</h2>
+    <p>I spent seven years inside the Hong Kong Government's Civil Service Bureau, progressing from application development to senior infrastructure work — designing networks, automating Active Directory at scale, and standing up mission-critical infrastructure under hard deadlines.</p>
+    <p>Now based in Toronto and Azure-certified, I'm focused on hybrid cloud and modern endpoint management: AZ-104 complete, Microsoft 365 Administrator Expert track in progress.</p>
+  </section>
+
+  <section>
+    <h2 class="sec-label">// Route — career path</h2>
+    <ol class="route">
+
+      <li class="hop">
+        <div class="hop-meta"><span class="hopnum">hop 01</span> · <!-- EDIT-DATES: verify against master CV -->2017 — 2024 · HONG KONG</div>
+        <h3>IT Officer → Senior Infrastructure &amp; Architecture</h3>
+        <p class="org">Civil Service Bureau, HKSAR Government — four progressive roles</p>
+        <ul>
+          <li>Stood up complete IT infrastructure for a COVID-19 Community Vaccination Centre under emergency timelines</li>
+          <li>Redesigned office-wide Wi-Fi architecture, improving coverage and capacity for hundreds of staff</li>
+          <li>Negotiated bandwidth provisioning with OGCIO, cutting recurring network costs</li>
+          <li>Automated Active Directory administration with PowerShell, eliminating repetitive manual provisioning</li>
+          <li>Led end-to-end IT delivery for a full office relocation (network, servers, endpoints)</li>
+        </ul>
+      </li>
+
+      <!-- EDIT-OPTIONAL: delete this whole <li> block if you'd rather not show the bridge role -->
+      <li class="hop">
+        <div class="hop-meta"><span class="hopnum">hop 02</span> · 2025 — PRESENT · TORONTO</div>
+        <h3>Storeroom Supervisor</h3>
+        <p class="org">CLS Catering Services — operations role while relocating to Canada</p>
+        <ul>
+          <li>Inventory systems, supplier coordination, and process discipline — while completing the Microsoft certification track after hours</li>
+        </ul>
+      </li>
+
+      <li class="hop current">
+        <div class="hop-meta"><span class="hopnum">hop 03</span> · NEXT</div>
+        <h3>Systems Architect / Cloud Infrastructure — GTA</h3>
+        <p class="org">Destination: that could be your team</p>
+      </li>
+
+    </ol>
+  </section>
+
+  <section>
+    <h2 class="sec-label">// Certifications</h2>
+    <div class="certs">
+      <div class="cert">
+        <div class="code">AZ-104</div>
+        <div class="cert-name">Azure Administrator Associate</div>
+        <div class="cert-status">CERTIFIED</div>
+      </div>
+      <div class="cert progress">
+        <div class="code">MD-102</div>
+        <div class="cert-name">Endpoint Administrator</div>
+        <div class="cert-status">EXAM: JUL 2026</div>
+      </div>
+      <div class="cert progress">
+        <div class="code">MS-102</div>
+        <div class="cert-name">Microsoft 365 Administrator</div>
+        <div class="cert-status">EXAM: AUG 2026</div>
+      </div>
+      <div class="cert">
+        <div class="code">ITIL 4</div>
+        <div class="cert-name">IT Service Management</div>
+        <div class="cert-status">CERTIFIED</div>
+      </div>
+      <div class="cert">
+        <div class="code">ISO 27001</div>
+        <div class="cert-name">Internal Auditor</div>
+        <div class="cert-status">CERTIFIED</div>
+      </div>
+      <div class="cert">
+        <div class="code">CEH v12</div>
+        <div class="cert-name">Certified Ethical Hacker</div>
+        <div class="cert-status">CERTIFIED</div>
+      </div>
+      <div class="cert">
+        <div class="code">EXIN DCP</div>
+        <div class="cert-name">Data Centre Professional</div>
+        <div class="cert-status">CERTIFIED</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-label">// Skills</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <div class="group-name">Cloud &amp; Identity</div>
+        <div class="tags">
+          <span class="tag">Microsoft Azure</span>
+          <span class="tag">Entra ID</span>
+          <span class="tag">Microsoft Intune</span>
+          <span class="tag">Microsoft 365</span>
+          <span class="tag">Azure Networking</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="group-name">Infrastructure</div>
+        <div class="tags">
+          <span class="tag">Windows Server</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">Hyper-V</span>
+          <span class="tag">VMware</span>
+          <span class="tag">Linux (RHEL/CentOS)</span>
+          <span class="tag">Network Design</span>
+          <span class="tag">PRTG Monitoring</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="group-name">Automation &amp; Practice</div>
+        <div class="tags">
+          <span class="tag">PowerShell</span>
+          <span class="tag">ITIL Service Management</span>
+          <span class="tag">Incident Response</span>
+          <span class="tag">Infrastructure Projects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="contact">
+      <h2>Open to systems &amp; cloud infrastructure roles in the GTA</h2>
+      <p>If you're hiring for infrastructure, endpoint management, or cloud administration — let's talk.</p>
+      <!-- EDIT-EMAIL: replace with mailto:you@example.com -->
+      <a href="#">Get in touch →</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>BRYCE NG · TORONTO</span>
+    <span>HOSTED ON AZURE STATIC WEB APPS</span>
+  </footer>
+
+</div>
+</body>
+</html>
